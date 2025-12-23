@@ -7,7 +7,7 @@ const {
   getLandlordById,
   updateLandlord,
   deleteLandlord,
-} = require("../controllers/landlordController");
+} = require("../controllers/adminController");
 const authMiddleware = require("../middleware/authMiddleware");
 const roleMiddleware = require("../middleware/roleMiddleware");
 

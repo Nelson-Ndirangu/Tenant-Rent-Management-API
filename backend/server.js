@@ -3,9 +3,10 @@ const express = require('express');
 const dotenv = require('dotenv');
 dotenv.config();
 const connectDB = require('./config/db');
-const userRoutes = require('./routes/userRoute');
+const userAuthRoutes = require('./routes/userRoute');
 const tenantRoutes = require('./routes/tenantRoute');
-const landlordRoutes = require('./routes/landlordRoute');
+const adminRoutes = require('./routes/adminRoute');
+require('./cron/reminder');
 const app = express();
 
 
@@ -23,9 +24,9 @@ app.get('/', (req, res) => {
 
 
 // API Endpoints
-app.use('/api/users', userRoutes);
-app.use('/api/tenants', tenantRoutes);
-app.use('/api/landlords', landlordRoutes);
+app.use('/api/users', userAuthRoutes);
+app.use('/api/landlord', tenantRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Start the server 
 const PORT = process.env.PORT || 6000;

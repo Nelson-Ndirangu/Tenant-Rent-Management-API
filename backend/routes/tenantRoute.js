@@ -16,7 +16,7 @@ const roleMiddleware = require("../middleware/roleMiddleware");
 router.post(
   "/",
   authMiddleware,
-  roleMiddleware(["admin", "landlord", "tenant"]),
+  roleMiddleware(["admin", "landlord"]),
   createTenant
 );
 

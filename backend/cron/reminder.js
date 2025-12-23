@@ -10,7 +10,7 @@ const nodemailer = require("nodemailer");
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);
-    console.log("Connected to MongoDB for cron jobs");
+    console.log("\n Connected to MongoDB for cron jobs");
   } catch (err) {
     console.error("MongoDB connection error:", err);
   }
@@ -28,7 +28,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Schedule cron job to run daily at 8 AM
-cron.schedule("* * * *", async () => {
+cron.schedule("* * * * *", async () => {
   console.log("Running daily payment reminder cron job");
   try {
     const tomorrow = new Date();

@@ -15,7 +15,7 @@ exports.register = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = new User({ name, email, phoneNumber, password: hashedPassword, role });
         await user.save();
-        res.status(201).json({ message: 'User registered successfully' });
+        res.status(201).json({ message: ` ${user.role} '${user.name}' registered successfully` });
     } catch (error) {
         res.status(500).json({ message: 'Server error' });
     }
@@ -49,7 +49,7 @@ exports.refreshToken = (req, res) => {
     }
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const newToken = jwt.sign({ userId: decoded.userId, role: decoded.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const newToken = jwt.sign({ userId: decoded.userId, role: decoded.role }, process.env.JWT_SECRET, { expiresIn: '4h' });
         res.status(200).json({ token: newToken });
     } catch (error) {
         res.status(401).json({ message: 'Invalid token' });
