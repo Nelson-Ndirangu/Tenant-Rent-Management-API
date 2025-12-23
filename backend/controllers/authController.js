@@ -1,4 +1,4 @@
-// Register, Login, Logout, and Refresh Token Controllers
+// Register, Login, and refresh Token Controllers
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
