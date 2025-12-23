@@ -1,44 +1,55 @@
 // Tenant routes
 const express = require("express");
 const router = express.Router();
-const tenantController = require("../controllers/tenantController");
+const {
+  createTenant,
+  getAllTenants,
+  getTenantById,
+  updateTenant,
+  deleteTenant } = require("../controllers/tenantController");
 const authMiddleware = require("../middleware/authMiddleware");
 const roleMiddleware = require("../middleware/roleMiddleware");
 
 // Routes
+
+// Create a new tenant
 router.post(
   "/",
   authMiddleware,
   roleMiddleware(["admin", "landlord", "tenant"]),
-  tenantController.createTenant
+  createTenant
 );
 
+// Get all tenants
 router.get(
   "/",
   authMiddleware,
   roleMiddleware(["admin", "landlord"]),
-  tenantController.getAllTenants
+  getAllTenants
 );
 
+// Get tenant by ID
 router.get(
   "/:id",
   authMiddleware,
   roleMiddleware(["admin", "landlord"]),
-  tenantController.getTenantById
+  getTenantById
 );
 
+// Update tenant by ID
 router.put(
   "/:id",
   authMiddleware,
   roleMiddleware(["admin", "landlord"]),
-  tenantController.updateTenant
+  updateTenant
 );
 
+// Delete tenant by ID
 router.delete(
   "/:id",
   authMiddleware,
   roleMiddleware(["admin", "landlord"]),
-  tenantController.deleteTenant
+  deleteTenant
 );
 
 module.exports = router;

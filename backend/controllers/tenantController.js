@@ -2,7 +2,7 @@
 const Tenant = require('../models/tenant');
 
 // Create a new tenant
-exports.createTenant = async (req, res) => {
+const createTenant = async (req, res) => {
     try {
         const { userId, propertyId, unitId, leaseStartDate, leaseEndDate, status } = req.body;
         const tenant = new Tenant({ userId, propertyId, unitId, leaseStartDate, leaseEndDate, status });
@@ -15,7 +15,7 @@ exports.createTenant = async (req, res) => {
 };
 
 // Get all tenants
-exports.getAllTenants = async (req, res) => {
+const getAllTenants = async (req, res) => {
     try {
         const tenants = await Tenant.find().populate('userId propertyId unitId');
         res.status(200).json(tenants);
@@ -26,7 +26,7 @@ exports.getAllTenants = async (req, res) => {
 
 // Get tenant by ID
 
-exports.getTenantById = async (req, res) => {
+const getTenantById = async (req, res) => {
     try {
         const tenant = await Tenant.findById(req.params.id).populate('userId propertyId unitId');
         if (!tenant) {
@@ -39,7 +39,7 @@ exports.getTenantById = async (req, res) => {
 };
 
 // Update tenant by ID
-exports.updateTenant = async (req, res) => {
+const updateTenant = async (req, res) => {
     try {
         const tenant = await Tenant.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!tenant) {
@@ -52,7 +52,7 @@ exports.updateTenant = async (req, res) => {
 };
 
 // Delete tenant by ID
-exports.deleteTenant = async (req, res) => {
+const deleteTenant = async (req, res) => {
     try {
         const tenant = await Tenant.findByIdAndDelete(req.params.id);
         if (!tenant) {
@@ -65,11 +65,10 @@ exports.deleteTenant = async (req, res) => {
 };
 
 // Exporting all controller functions
-module.exports = {
+module.exports =  {
     createTenant,
     getAllTenants,
     getTenantById,
     updateTenant,
     deleteTenant
-};
-
+}

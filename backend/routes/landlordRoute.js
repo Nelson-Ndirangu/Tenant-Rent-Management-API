@@ -1,41 +1,29 @@
 // Landlord routes
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const userController = require('../controllers/landlordController');
-const authMiddleware = require('../middleware/authMiddleware');
-const roleMiddleware = require('../middleware/roleMiddleware');
+const {
+  createLandlord,
+  getAllLandlords,
+  getLandlordById,
+  updateLandlord,
+  deleteLandlord,
+} = require("../controllers/landlordController");
+const authMiddleware = require("../middleware/authMiddleware");
+const roleMiddleware = require("../middleware/roleMiddleware");
 
 // Routes
-router.post(
-    '/',
-    authMiddleware,
-    roleMiddleware(['admin']),
-    userController.createUser
-);
+router.post("/", authMiddleware, roleMiddleware(["admin"]), createLandlord);
 
-router.get(
-    '/',
-    authMiddleware,
-    roleMiddleware(['admin']),
-    userController.getAllUsers
-);
+router.get("/", authMiddleware, roleMiddleware(["admin"]), getAllLandlords);
 
-router.get(
-    '/:id',
-    authMiddleware,
-    roleMiddleware(['admin']),
-    userController.getUserById
-);
-router.put(
-    '/:id',
-    authMiddleware,
-    roleMiddleware(['admin']),
-    userController.updateUser
-);
+router.get("/:id", authMiddleware, roleMiddleware(["admin"]), getLandlordById);
+router.put("/:id", authMiddleware, roleMiddleware(["admin"]), updateLandlord);
+
 router.delete(
-    '/:id',
-    authMiddleware,
-    roleMiddleware(['admin']),
-    userController.deleteUser
+  "/:id",
+  authMiddleware,
+  roleMiddleware(["admin"]),
+  deleteLandlord
 );
+
 module.exports = router;
