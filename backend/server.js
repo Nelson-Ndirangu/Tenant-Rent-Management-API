@@ -3,6 +3,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 dotenv.config();
 const connectDB = require('./config/db');
+const userRoutes = require('./routes/userRoute');
 const tenantRoutes = require('./routes/tenantRoute');
 const landlordRoutes = require('./routes/landlordRoute');
 const app = express();
@@ -22,11 +23,12 @@ app.get('/', (req, res) => {
 
 
 // API Endpoints
+app.use('/api/users', userRoutes);
 app.use('/api/tenants', tenantRoutes);
 app.use('/api/landlords', landlordRoutes);
 
 // Start the server 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 6000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
