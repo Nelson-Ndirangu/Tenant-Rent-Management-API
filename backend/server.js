@@ -3,7 +3,10 @@ const express = require('express');
 const dotenv = require('dotenv');
 dotenv.config();
 const connectDB = require('./config/db');
+const tenantRoutes = require('./routes/tenantRoute');
+const landlordRoutes = require('./routes/landlordRoute');
 const app = express();
+
 
 
 // Middleware to parse JSON requests
@@ -16,6 +19,11 @@ connectDB();
 app.get('/', (req, res) => {
     res.send('Welcome to the Tenant Rent Management API');
 });
+
+
+// API Endpoints
+app.use('/api/tenants', tenantRoutes);
+app.use('/api/landlords', landlordRoutes);
 
 // Start the server 
 const PORT = process.env.PORT || 3000;
