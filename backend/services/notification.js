@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
   service: "Gmail",
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS, 
+    pass: process.env.EMAIL_PASS,
   },
 });
 
@@ -18,9 +18,9 @@ const transporter = nodemailer.createTransport({
 const REMINDER_STAGES = {
   "-5": "5-DAYS BEFORE",
   "-1": "1-DAY BEFORE",
-   "0": "ON-DUE-DATE",
-   "3": "3-DAYS AFTER",
-   "6": "6-DAYS AFTER",
+  0: "ON-DUE-DATE",
+  3: "3-DAYS AFTER",
+  6: "6-DAYS AFTER",
 };
 
 // Helper Functions
@@ -116,9 +116,7 @@ Tenant Rent Management Team`,
     if (!landlord) continue;
 
     const summary = landlordBuckets[landlordId]
-      .map(
-        (p) => `• ${p.tenant} | ${p.property} | $${p.amount}`
-      )
+      .map((p) => `• ${p.tenant} | ${p.property} | $${p.amount}`)
       .join("\n");
 
     await transporter.sendMail({

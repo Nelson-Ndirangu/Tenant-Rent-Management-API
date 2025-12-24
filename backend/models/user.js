@@ -14,7 +14,8 @@ const UserSchema = new mongoose.Schema({
         required: true,
         unique: true,
         lowercase: true,
-        trim: true
+        trim: true,
+        index: true
     },
     phoneNumber: {
         type: String,
@@ -37,6 +38,4 @@ const UserSchema = new mongoose.Schema({
    
 },{ timestamps: true});
 
-// Adding index for email addresses
-UserSchema.index({ email: 1 });
 module.exports = mongoose.model('User', UserSchema);

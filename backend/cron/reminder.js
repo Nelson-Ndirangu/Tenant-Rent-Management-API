@@ -7,7 +7,8 @@ const { sendRentReminders } = require("../models/notification");
 
 mongoose.connect(process.env.MONGO_URI);
 
-cron.schedule("0 *8 * * * *", async () => {
+// Schedule daily rent reminders at 8 AM every day
+cron.schedule("0 8 * * *", async () => {
   console.log("\n... Running daily rent reminder schedule....");
   await sendRentReminders;
 });
