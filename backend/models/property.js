@@ -7,7 +7,7 @@ const PropertySchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    name: {
+    propertyName: {
         type: String,
         required: true
     },

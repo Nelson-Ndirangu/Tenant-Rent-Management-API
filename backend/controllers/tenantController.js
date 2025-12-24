@@ -4,8 +4,8 @@ const Tenant = require('../models/tenant');
 // Create a new tenant
 const createTenant = async (req, res) => {
     try {
-        const { userId, propertyId, unitId, leaseStartDate, leaseEndDate, status } = req.body;
-        const tenant = new Tenant({ userId, propertyId, unitId, leaseStartDate, leaseEndDate, status });
+        const { leaseStartDate, leaseEndDate, status } = req.body;
+        const tenant = new Tenant({ leaseStartDate, leaseEndDate, status });
         await tenant.save();
         res.status(201).json({ message: 'Tenant created successfully', tenant });
     }

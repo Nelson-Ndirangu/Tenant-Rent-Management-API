@@ -3,9 +3,9 @@ const express = require('express');
 const dotenv = require('dotenv');
 dotenv.config();
 const connectDB = require('./config/db');
-const userAuthRoutes = require('./routes/userRoute');
+const userAuthRoutes = require('./routes/authRoute');
 const tenantRoutes = require('./routes/tenantRoute');
-const adminRoutes = require('./routes/adminRoute');
+const adminRoutes = require('./routes/landlordRoute');
 require('./cron/reminder');
 const app = express();
 
