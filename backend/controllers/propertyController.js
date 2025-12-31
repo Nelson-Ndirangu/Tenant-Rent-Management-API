@@ -4,8 +4,9 @@ const Property = require("../models/property");
 // Create property
 const createProperty = async (req, res) => {
   try {
-    const { propertyName, location, county } = req.body;
-    const property = new Property({ propertyName, location, county });
+    // Creating a new property
+    const {landlordId, propertyName, location, county } = req.body;
+    const property = new Property({ landlordId, propertyName, location, county });
     await property.save();
     res
       .status(201)

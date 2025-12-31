@@ -78,13 +78,14 @@ const sendRentReminders = async () => {
       subject: "Rent Payment Reminder",
       text: `Dear ${tenant.userId.name},
 
-This is a reminder that your rent payment of $${payment.amount}
+This is a reminder that your rent payment of Ksh ${payment.amount}
 is ${reminderStage.replace("-", " ").toLowerCase()}.
 
 Due Date: 30th of this month.
 
 Please ensure payment is made on time.
 
+Thank you,
 Tenant Rent Management Team`,
     });
 
