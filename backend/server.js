@@ -8,6 +8,7 @@ const landlordRoutes = require('./routes/landlordRoute');
 const propertyRoutes = require('./routes/propertyRoute');
 const tenantRoutes = require('./routes/tenantRoute');
 const userRoutes = require('./routes/userRoute');
+const mpesaRoutes = require('./routes/mpesaRoute');
 const notificationRoutes = require('./routes/notificationRoute');
 require('./cron/reminder');
 const app = express();
@@ -33,6 +34,7 @@ app.use('/api/admin/property', propertyRoutes);
 app.use('/api/tenant', tenantRoutes);
 app.use('/api/admin/user', userRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/mpesa', mpesaRoutes);
 
 // Start the server 
 const PORT = process.env.PORT || 6000;
