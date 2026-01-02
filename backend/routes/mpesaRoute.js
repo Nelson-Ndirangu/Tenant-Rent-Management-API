@@ -120,9 +120,10 @@ router.post('/callback', (req, res) => {
   // Always respond to Safaricom with a success to acknowledge receipt
   res.json({ ResultCode: 0, ResultDesc: 'Accepted' });
   
-  // Process the callback data as needed for your application
+  // Process the callback data (still under development)
   if (callbackData.ResultCode === 0) {
-    // Payment successful
+        // Payment successful
+        
     const transactionDetails = callbackData.CallbackMetadata.Item;
     // Process the successful payment
     console.log('Payment successful');
