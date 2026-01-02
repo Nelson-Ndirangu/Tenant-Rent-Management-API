@@ -10,7 +10,7 @@ A comprehensive REST API for managing tenant rent payments, properties, and user
 - **Payment Integration**: M-Pesa STK Push for rent payments
 - **Notifications**: Email notifications for rent reminders and updates
 - **Automated Reminders**: Cron jobs for rents due reminders
-- **Secure API**: Password hashing, CORS support, and middleware protection
+- **Secure API**: Password hashing, CORS support, middleware protection, and rate limiting
 
 ## Tech Stack
 
@@ -20,7 +20,7 @@ A comprehensive REST API for managing tenant rent payments, properties, and user
 - **Payments**: M-Pesa Daraja API
 - **Email**: Nodemailer with Gmail SMTP
 - **Scheduling**: Node-cron for automated tasks
-- **Security**: bcryptjs for password hashing, CORS
+- **Security**: bcryptjs for password hashing, CORS, express-rate-limit for rate limiting
 
 ## Prerequisites
 
