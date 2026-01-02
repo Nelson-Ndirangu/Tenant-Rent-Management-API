@@ -231,6 +231,12 @@ The API uses RESTful conventions. All requests should include:
 
 This project is licensed under the ISC License.
 
+## Copyright
+
+© 2026 Tenant Rent Management API. All rights reserved.
+
+This project is copyrighted material. Unauthorized duplication, distribution, or use may result in legal actions.
+
 ## Support
 
 For support, email nelsonmaina690@gmail.com or create an issue in the repository.
