@@ -53,13 +53,13 @@ app.get('/', (req, res) => {
     res.send('Welcome to the Tenant Rent Management API');
 });
 
-app.use('/api/auth', authRoutes);
-app.use('/api/admin/landlord', landlordRoutes);
-app.use('/api/admin/property', propertyRoutes);
-app.use('/api/tenant', tenantRoutes);
-app.use('/api/admin/user', userRoutes);
-app.use('/api/notifications', notificationRoutes);
-app.use('/api/mpesa', mpesaRoutes);
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/admin/landlord', landlordRoutes);
+app.use('/api/v1/admin/property', propertyRoutes);
+app.use('/api/v1/tenant', tenantRoutes);
+app.use('/api/v1/admin/user', userRoutes);
+app.use('/api/v1/notifications', notificationRoutes);
+app.use('/api/v1/mpesa', mpesaRoutes);
 
 const PORT = process.env.PORT || 6000;
 
