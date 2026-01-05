@@ -77,50 +77,56 @@ The server will start on `http://localhost:6000`.
 
 ## API Endpoints
 
+### Root
+
+- `GET /` - Welcome message
+
 ### Authentication
 
-- `POST /api/auth/register` - Register a new user
-- `POST /api/auth/login` - User login
+- `POST /api/v1/auth/register` - Register a new user
+- `POST /api/v1/auth/login` - User login
 
 ### Properties (Admin only)
 
-- `POST /api/admin/property` - Create a property
-- `GET /api/admin/property` - Get all properties
-- `GET /api/admin/property/:id` - Get property by ID
-- `PUT /api/admin/property/:id` - Update property
-- `DELETE /api/admin/property/:id` - Delete property
+- `POST /api/v1/admin/property` - Create a property
+- `GET /api/v1/admin/property` - Get all properties
+- `GET /api/v1/admin/property/:id` - Get property by ID
+- `PUT /api/v1/admin/property/:id` - Update property
+- `DELETE /api/v1/admin/property/:id` - Delete property
 
 ### Tenants (Admin & Landlord)
 
-- `POST /api/tenant` - Create a tenant
-- `GET /api/tenant` - Get all tenants
-- `GET /api/tenant/:id` - Get tenant by ID
-- `PUT /api/tenant/:id` - Update tenant
-- `DELETE /api/tenant/:id` - Delete tenant
+- `POST /api/v1/tenant` - Create a tenant
+- `GET /api/v1/tenant` - Get all tenants
+- `GET /api/v1/tenant/:id` - Get tenant by ID
+- `PUT /api/v1/tenant/:id` - Update tenant
+- `DELETE /api/v1/tenant/:id` - Delete tenant
 
 ### Users (Admin only)
 
-- `GET /api/admin/user` - Get all users
-- `GET /api/admin/user/:id` - Get user by ID
-- `PUT /api/admin/user/:id` - Update user
-- `DELETE /api/admin/user/:id` - Delete user
+- `POST /api/v1/admin/user` - Create a user
+- `GET /api/v1/admin/user` - Get all users
+- `GET /api/v1/admin/user/:id` - Get user by ID
+- `PUT /api/v1/admin/user/:id` - Update user
+- `DELETE /api/v1/admin/user/:id` - Delete user
 
 ### Landlords (Admin only)
 
-- `GET /api/admin/landlord` - Get all landlords
-- `GET /api/admin/landlord/:id` - Get landlord by ID
-- `PUT /api/admin/landlord/:id` - Update landlord
-- `DELETE /api/admin/landlord/:id` - Delete landlord
+- `POST /api/v1/admin/landlord` - Create a landlord
+- `GET /api/v1/admin/landlord` - Get all landlords
+- `GET /api/v1/admin/landlord/:id` - Get landlord by ID
+- `PUT /api/v1/admin/landlord/:id` - Update landlord
+- `DELETE /api/v1/admin/landlord/:id` - Delete landlord
 
 ### Notifications
 
-- `GET /api/notifications` - Get user notifications
-- `PUT /api/notifications/:id/read` - Mark notification as read
+- `GET /api/v1/notifications` - Get user notifications
+- `DELETE /api/v1/notifications/:id` - Delete notification
 
 ### M-Pesa Payments
 
-- `POST /api/mpesa/stk-push` - Initiate STK Push payment
-- `POST /api/mpesa/callback` - M-Pesa callback handler
+- `POST /api/v1/mpesa/stk-push` - Initiate STK Push payment
+- `POST /api/v1/mpesa/callback` - M-Pesa callback handler
 
 ## User Roles
 
@@ -145,6 +151,15 @@ The server will start on `http://localhost:6000`.
 - propertyName: String
 - location: String
 - county: String
+
+### Unit
+
+- propertyId: ObjectId (ref: Property)
+- unitNumber: String
+- unitType: Enum ['studio', '1-bedroom', '2-bedroom', '3-bedroom', '4-bedroom', '5-bedroom', 'business-suite', 'office-space', 'retail-space', 'warehouse', 'own-compound']
+- rentAmount: Number
+- dueDate: Date
+- isOccupied: Boolean
 
 ### Tenant
 
@@ -188,19 +203,13 @@ The server will start on `http://localhost:6000`.
 
 ## Development
 
-### Running Tests
+### Running the Application
 
 ```bash
-npm test
+npm run dev  # For development with nodemon
+# or
+npm start    # For production
 ```
-
-### Code Linting
-
-```bash
-npm run lint
-```
-
-### API Documentation
 
 The API uses RESTful conventions. All requests should include:
 
