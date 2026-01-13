@@ -63,6 +63,20 @@ const PaymentSchema = new mongoose.Schema(
       type: String,
       default: null,
     },
+    checkoutRequestId: {
+      type: String,
+      default: null,
+    },
+
+    merchantRequestId: {
+      type: String,
+      default: null,
+    },
+
+    phoneNumber: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );
@@ -72,6 +86,5 @@ PaymentSchema.index(
   { tenantId: 1, unitId: 1, month: 1, year: 1, status: 1, paymentDate: 1 },
   { unique: true }
 );
-
 
 module.exports = mongoose.model("Payment", PaymentSchema);
