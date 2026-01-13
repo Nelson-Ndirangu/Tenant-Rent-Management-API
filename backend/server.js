@@ -1,34 +1,45 @@
 // Backend server entry point
-const express = require('express');
-const dotenv = require('dotenv');
-const http = require('http');
-const rateLimit = require('express-rate-limit');
-const cors = require('cors');
+const express = require("express");
+const dotenv = require("dotenv");
+const http = require("http");
+const rateLimit = require("express-rate-limit");
+const cors = require("cors");
 
 dotenv.config();
 
-const connectDB = require('./config/db');
-const authRoutes = require('./routes/authRoute');
-const landlordRoutes = require('./routes/landlordRoute');
-const propertyRoutes = require('./routes/propertyRoute');
-const tenantRoutes = require('./routes/tenantRoute');
-const userRoutes = require('./routes/userRoute');
-const notificationRoutes = require('./routes/notificationRoute');
+const connectDB = require("./config/db");
+const authRoutes = require("./routes/authRoute");
+const landlordRoutes = require("./routes/landlordRoute");
+const propertyRoutes = require("./routes/propertyRoute");
+const tenantRoutes = require("./routes/tenantRoute");
+const userRoutes = require("./routes/userRoute");
+const notificationRoutes = require("./routes/notificationRoute");
 
-require('./cron/reminder');
+require("./cron/reminder");
+const morgan = require("morgan");
+const logger = require("./logger/logger");
 
 const app = express();
 
+// HTTP request logging
+app.use(
+  morgan("combined", {
+    stream: {
+      write: (message) => logger.info(message.trim()),
+    },
+  })
+);
+
 // Rate Limiter
 const globalLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // limit each IP to 100 requests per window
-    message: {
-        status: 429,
-        error: 'Too many requests, please try again later.'
-    },
-    standardHeaders: true,
-    legacyHeaders: false
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per window
+  message: {
+    status: 429,
+    error: "Too many requests, please try again later.",
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
 });
 
 // Apply rate limiter to all requests
@@ -36,30 +47,30 @@ app.use(globalLimiter);
 
 // Middleware
 app.use(express.json());
-app.use(cors({
-    origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 app.use(express.urlencoded({ extended: true }));
-
 
 // Connect to Database
 connectDB();
 
 // Endpoints
-app.get('/', (req, res) => {
-    res.send('Welcome to the Tenant Rent Management API');
+app.get("/", (req, res) => {
+  res.send("Welcome to the Tenant Rent Management API");
 });
 
-app.use('/api/v1/auth', authRoutes);
-app.use('/api/v1/admin/landlord', landlordRoutes);
-app.use('/api/v1/admin/property', propertyRoutes);
-app.use('/api/v1/tenant', tenantRoutes);
-app.use('/api/v1/admin/user', userRoutes);
-app.use('/api/v1/notifications', notificationRoutes);
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/admin/landlord", landlordRoutes);
+app.use("/api/v1/admin/property", propertyRoutes);
+app.use("/api/v1/tenant", tenantRoutes);
+app.use("/api/v1/admin/user", userRoutes);
+app.use("/api/v1/notifications", notificationRoutes);
 app.use("/mpesa", require("./mpesa/mpesa.routes"));
-
 
 const PORT = process.env.PORT || 6000;
 
@@ -72,5 +83,5 @@ server.keepAliveTimeout = 65 * 1000; // keep-alive timeout
 server.headersTimeout = 70 * 1000; // headers timeout
 
 server.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+  logger.info(`Server is running on http://localhost:${PORT}`);
 });
