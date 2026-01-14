@@ -2,7 +2,8 @@
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const User = require('../models/user');
+const User = require('../models/user.js');
+const crypto = require('crypto');
 
 // Register a new user
 exports.register = async (req, res) => {
@@ -39,6 +40,49 @@ exports.login = async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 };
+
+// forgot Password
+export const forgotPassword = async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        if (!email) {
+            return res.status(400).json({ message: 'Email is required' });
+        }
+
+        const user = await User.findOne({ email: email.toLowerCase() });
+
+        if (!user) {
+            return res.status(400).json({ message: 'User not found' });
+        }
+
+        // Generate reset token
+        const resetToken = crypto.randomBytes(32).toString('hex');
+
+        // Hash token before saving
+        const hashedToken = crypto
+            .createHash('sha256')
+            .update(resetToken)
+            .digest('hex');
+
+        user.passwordResetToken = hashedToken;
+        user.passwordResetExpires = Date.now() + 60 * 60 * 1000; // 1 hour
+
+        await user.save();
+
+        // Simulate sending email
+        const resetLink = `http://yourfrontend.com/reset-password?token=${resetToken}`;
+        console.log(`Password reset link: ${resetLink}`);
+
+        res.status(200).json({
+            message: 'Password reset link has been sent to your email',
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
 
 
 // Refresh token
